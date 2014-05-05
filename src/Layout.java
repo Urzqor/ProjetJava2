@@ -1,0 +1,38 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class Layout {
+
+    public String title;
+    public int height;
+    public int width;
+    public JFrame jf;
+
+    // Constructeur
+    public Layout(int h, int w, String title){
+
+        this.height = h;
+        this.width = w;
+        this.title = title;
+    }
+
+    public void init(){
+
+        this.jf = new JFrame();
+        this.jf.setSize(this.width, this.height);
+
+        this.jf.setTitle(this.title);
+        this.jf.setVisible(true);
+        this.jf.setResizable(false);
+        this.jf.setDefaultCloseOperation(3);
+
+        Container c = this.jf.getContentPane();
+        FlowLayout flow = new FlowLayout();
+        c.setLayout(flow);
+    }
+
+    public void createMainWindow(){
+
+        this.jf.add(new JLabel(new ImageIcon("content/img01.png")));
+    }
+}
