@@ -17,8 +17,11 @@ public class Start {
                 - Mark a task as completed
          */
 
-        Layout mainWindow = new Layout(500,500,"SupPlanner");
+        Layout mainWindow = new Layout(400,600,"SupPlanner");
         mainWindow.init();
         mainWindow.createMainWindow();
+
+        User user = new User();
+
     }
 }
