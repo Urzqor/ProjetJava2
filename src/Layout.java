@@ -3,6 +3,8 @@ import com.sun.deploy.panel.JSmartTextArea;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Layout {
 
@@ -10,6 +12,7 @@ public class Layout {
     public int height;
     public int width;
     public JFrame jf;
+    public Windows window;
 
     // Constructeur
     public Layout(int h, int w, String title){
@@ -17,6 +20,7 @@ public class Layout {
         this.height = h;
         this.width = w;
         this.title = title;
+        this.window = new Windows();
     }
 
     public void init(){
@@ -34,28 +38,5 @@ public class Layout {
         Container c = this.jf.getContentPane();
         FlowLayout flow = new FlowLayout();
         c.setLayout(flow);
-    }
-
-    public void createMainWindow(){
-
-        this.jf.add(new JLabel(new ImageIcon("content/logo.png")));
-
-        JLabel label = new JLabel(
-            "Connectez-vous si vous possédez déjà un compte, "+
-            "ou enregistrez un nouveau compte.",
-            JLabel.CENTER
-        );
-        label.setBorder(new EmptyBorder(10, 0, 30, 0));
-        this.jf.add(label);
-
-        JButton button = new JButton("S'enregistrer");
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.jf.add(button);
-
-        button = new JButton("S'enregistrer");
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.jf.add(button);
-
-        this.jf.validate();
     }
 }
