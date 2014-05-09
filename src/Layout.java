@@ -14,13 +14,16 @@ public class Layout {
     public JFrame jf;
     public Windows window;
 
+    public User user;
+
     // Constructeur
-    public Layout(int h, int w, String title){
+    public Layout(int h, int w, String title, User user){
 
         this.height = h;
         this.width = w;
         this.title = title;
         this.window = new Windows();
+        this.user = user;
     }
 
     public void init(){
@@ -38,5 +41,11 @@ public class Layout {
         Container c = this.jf.getContentPane();
         FlowLayout flow = new FlowLayout();
         c.setLayout(flow);
+    }
+
+    public void destroy(){
+
+        this.jf.dispose();
+        this.jf = null;
     }
 }
