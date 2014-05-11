@@ -21,6 +21,7 @@ public class Database {
         this.psw = psw;
     }
 
+    // GETTING THE CONNECTION
     public void instanciate(){
 
         try{

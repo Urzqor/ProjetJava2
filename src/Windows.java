@@ -19,23 +19,23 @@ public class Windows {
         l.jf.add(new JLabel(new ImageIcon("content/logo.png")));
 
         JLabel label = new JLabel(
-                "Connectez-vous si vous possédez déjà un compte, "+
-                        "ou enregistrez un nouveau compte.",
+                "Log in if you already have an account, "+
+                        "or register a new one.",
                 JLabel.CENTER
         );
-        label.setBorder(new EmptyBorder(10, 0, 30, 0));
+        label.setBorder(new EmptyBorder(30, 100, 50, 100));
         l.jf.add(label);
 
-        JButton button = new JButton("S'enregistrer");
+        JButton button = new JButton("Register");
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setActionCommand("register");
         button.addActionListener(new LandingPageActions());
         l.jf.add(button);
         this.components.add(button);
 
-        button = new JButton("Se connecter");
+        button = new JButton("Log in");
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setActionCommand("connect");
+        button.setActionCommand("login");
         button.addActionListener(new LandingPageActions());
         l.jf.add(button);
         this.components.add(button);
@@ -98,6 +98,50 @@ public class Windows {
         this.window = l;
     }
 
+    // LOGIN WINDOW
+    public void createLoginWindow(Layout l){
+
+        JLabel label = new JLabel(
+                "Please enter your informations :",
+                JLabel.CENTER
+        );
+        label.setBorder(new EmptyBorder(10, 80, 30, 80));
+        l.jf.add(label);
+
+        JLabel la = new JLabel("Username : ",JLabel.CENTER);
+        la.setBorder(new EmptyBorder(0, 10, 0, 0));
+        JLabel la1 = new JLabel("Password : ", JLabel.CENTER);
+        la1.setBorder(new EmptyBorder(0, 10, 0, 0));
+        JTextField tf = new JTextField(10);
+        tf.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY),
+                BorderFactory.createEmptyBorder(0, 60, 0, 60)));
+        JTextField tf1 = new JTextField(10);
+        tf1.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY),
+                BorderFactory.createEmptyBorder(0, 60, 0, 60)));
+        JButton reg = new JButton("Login");
+        reg.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY),
+                BorderFactory.createEmptyBorder(10, 40, 10, 40)));
+        reg.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        reg.setActionCommand("try_log_user");
+        reg.addActionListener(new LandingPageActions());
+
+        this.components.add(reg);
+        this.components.add(tf);
+        this.components.add(tf1);
+
+        l.jf.add(la);
+        l.jf.add(tf);
+        l.jf.add(la1);
+        l.jf.add(tf1);
+        l.jf.add(reg);
+
+        l.jf.validate();
+        l.jf.toFront();
+
+        this.window = l;
+
+    }
+
     public class LandingPageActions implements ActionListener {
 
         public void actionPerformed(ActionEvent e){
@@ -110,7 +154,16 @@ public class Windows {
                 registerWindow.init();
                 registerWindow.window.createRegisterWindow(registerWindow);
 
-                window.jf.setVisible(false);
+                window.destroy();
+            }
+
+            if ("login".equals(e.getActionCommand())){
+
+                Layout loginWindow = new Layout(200,400,"Login", window.user);
+                loginWindow.init();
+                loginWindow.window.createLoginWindow(loginWindow);
+
+                window.destroy();
             }
 
             if ("try_reg_user".equals(e.getActionCommand())){
@@ -133,14 +186,37 @@ public class Windows {
                             Layout mainWindow = new Layout(400,600,"SupPlanner", window.user);
                             mainWindow.init();
                             mainWindow.window.createMainWindow(mainWindow);
-                            window.jf.dispose();
-                            window.jf = null;
+                            window.destroy();
                         }
                     }else{
                         JOptionPane.showMessageDialog(null,"Passwords do not match ! Please try again.");
                     }
                 }else{
                     JOptionPane.showMessageDialog(null,"Please fill all the fields accordingly.");
+                }
+            }
+
+            if ("try_log_user".equals(e.getActionCommand())){
+
+                // Trying to log the user in
+                JTextField usr = (JTextField) components.get(1);
+                JTextField psw1 = (JTextField) components.get(2);
+
+                if (!usr.getText().trim().equals("") && !psw1.getText().trim().equals("")){
+                    if (!window.user.login(usr.getText().trim(), psw1.getText().trim())){
+                        JOptionPane.showMessageDialog(null, "Wrong information ! Please try again.");
+                    }else{
+                        window.user.connect();
+                        JOptionPane.showMessageDialog(null, "You are now logged in !");
+
+                        Layout mainWindow = new Layout(400,600,"SupPlanner", window.user);
+                        mainWindow.init();
+                        mainWindow.window.createMainWindow(mainWindow);
+
+                        window.destroy();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Please fill all the fields accordingly.");
                 }
             }
         }

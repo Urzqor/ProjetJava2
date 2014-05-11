@@ -63,4 +63,30 @@ public class User {
 
         return true;
     }
+
+
+    // LOG IN AN USER
+    public boolean login(String username, String psw){
+
+        int count=0;
+        String rqst = "SELECT id FROM users WHERE name='"+username+"' AND psw='"+psw+"';";
+
+        try {
+
+            this.db.result = this.db.st.executeQuery(rqst);
+            while( this.db.result.next()){
+                count ++;
+            }
+            if (count >= 1){
+                // User exists
+                return true;
+            }
+        }catch(Exception e){
+
+            System.out.println(e.toString());
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
