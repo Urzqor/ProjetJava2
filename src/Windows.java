@@ -143,8 +143,8 @@ public class Windows {
 
     }
 
-    // CREATING MENU WINDOW
-    public void createMenuWindow(Layout l){
+    // CREATING DASHBOARD WINDOW
+    public void createDashboardWindow(Layout l){
 
         l.jf.add(new JLabel(new ImageIcon("content/logo.png")));
 
@@ -235,9 +235,9 @@ public class Windows {
 
                         if (window.user.connect()){
 
-                            Layout menuWindow = new Layout(400,600,"SupPlanner", window.user);
-                            menuWindow.init();
-                            menuWindow.window.createMenuWindow(menuWindow);
+                            Layout dashWindow = new Layout(400,600,"SupPlanner dashboard", window.user);
+                            dashWindow.init();
+                            dashWindow.window.createDashboardWindow(dashWindow);
 
                             window.destroy();
                         }else{

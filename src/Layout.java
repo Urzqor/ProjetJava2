@@ -36,7 +36,7 @@ public class Layout {
         this.jf.setResizable(false);
         this.jf.setDefaultCloseOperation(3);
 
-        this.jf.setLocation(100,100);
+        this.jf.setLocationRelativeTo(null);
 
         Container c = this.jf.getContentPane();
         FlowLayout flow = new FlowLayout();
