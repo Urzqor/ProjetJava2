@@ -82,6 +82,7 @@ public class Windows {
         this.components.add(tf);
         this.components.add(tf1);
         this.components.add(tf2);
+        this.components.add(type);
 
         l.jf.add(la);
         l.jf.add(tf);
@@ -172,12 +173,17 @@ public class Windows {
                 JTextField usr = (JTextField) components.get(1);
                 JTextField psw1 = (JTextField) components.get(2);
                 JTextField psw2 = (JTextField) components.get(3);
+                JCheckBox type = (JCheckBox) components.get(4);
 
                 if (!usr.getText().trim().equals("") &&
                         !psw1.getText().trim().equals("") &&
                         !psw2.getText().trim().equals("")
                 ){
                     if ( psw1.getText().trim().equals( psw2.getText().trim() ) ){
+
+                        if (type.isSelected()){
+                            window.user.isManager = true;
+                        }
 
                         if (!window.user.register(usr.getText().trim(), psw1.getText().trim())){
                             JOptionPane.showMessageDialog(null,"This username already exists !");
