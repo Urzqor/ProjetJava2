@@ -5,7 +5,6 @@ public class User {
     public boolean connected;
     public boolean isManager;
     public String name = "";
-    public String psw = "";
     public Database db;
 
     public User(Database db){
@@ -79,6 +78,7 @@ public class User {
             }
             if (count >= 1){
                 // User exists
+                this.name = username;
                 return true;
             }
         }catch(Exception e){

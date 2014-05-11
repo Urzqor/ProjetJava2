@@ -143,6 +143,24 @@ public class Windows {
 
     }
 
+    // CREATING MENU WINDOW
+    public void createMenuWindow(Layout l){
+
+        l.jf.add(new JLabel(new ImageIcon("content/logo.png")));
+
+        JLabel label = new JLabel(
+                "Welcome, "+l.user.name+".",
+                JLabel.CENTER
+        );
+        label.setBorder(new EmptyBorder(30, 200, 50, 200));
+        l.jf.add(label);
+
+        l.jf.validate();
+        this.window = l;
+    }
+
+
+    // SWITCH ACTIONS
     public class LandingPageActions implements ActionListener {
 
         public void actionPerformed(ActionEvent e){
@@ -189,9 +207,11 @@ public class Windows {
                             JOptionPane.showMessageDialog(null,"This username already exists !");
                         }else{
                             JOptionPane.showMessageDialog(null,"User successfully registered !");
+
                             Layout mainWindow = new Layout(400,600,"SupPlanner", window.user);
                             mainWindow.init();
                             mainWindow.window.createMainWindow(mainWindow);
+
                             window.destroy();
                         }
                     }else{
@@ -212,14 +232,17 @@ public class Windows {
                     if (!window.user.login(usr.getText().trim(), psw1.getText().trim())){
                         JOptionPane.showMessageDialog(null, "Wrong information ! Please try again.");
                     }else{
-                        window.user.connect();
-                        JOptionPane.showMessageDialog(null, "You are now logged in !");
 
-                        Layout mainWindow = new Layout(400,600,"SupPlanner", window.user);
-                        mainWindow.init();
-                        mainWindow.window.createMainWindow(mainWindow);
+                        if (window.user.connect()){
 
-                        window.destroy();
+                            Layout menuWindow = new Layout(400,600,"SupPlanner", window.user);
+                            menuWindow.init();
+                            menuWindow.window.createMenuWindow(menuWindow);
+
+                            window.destroy();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Failed to connect the user. Try again.");
+                        }
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Please fill all the fields accordingly.");
